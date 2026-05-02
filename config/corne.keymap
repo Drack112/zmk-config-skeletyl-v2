@@ -54,7 +54,7 @@
         raise_layer {
             bindings = <
 &none  &kp LS(N1)  &kp LS(N2)  &kp LS(N3)  &kp LS(N4)   &kp LS(N5)    &kp LS(N6)     &kp LS(N7)     &kp LS(N8)    &kp LS(N9)    &kp LS(N0)  &none
-&none  &trans      &trans      &trans      &kp LS(SQT)  &trans        &kp LS(MINUS)  &kp EQUAL      &kp LS(LBKT)  &kp LS(RBKT)  &kp SQT     &none
+&none  &trans      &trans      &trans      &kp LS(SQT)  &kp SLASH     &kp LS(MINUS)  &kp EQUAL      &kp LS(LBKT)  &kp LS(RBKT)  &kp SQT     &none
 &none  &trans      &trans      &trans      &trans       &trans        &kp MINUS      &kp LS(EQUAL)  &kp LBKT      &kp RBKT      &kp BSLH    &none
                                &trans      &trans       &trans        &kp QUESTION   &kp LS(GRAVE)  &kp GRAVE
             >;
