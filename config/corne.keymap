@@ -1,6 +1,15 @@
 /*
  * Copyright (c) 2020 The ZMK Contributors
  * SPDX-License-Identifier: MIT
+ *
+ * IMPROVED KEYMAP — Programming-optimized layout
+ * Changes from original:
+ *  - Fixed B/N duplication bug on base layer
+ *  - Home row mods now on F (LSHIFT) instead of just A/S/D
+ *  - Symbols layer fully redesigned for programming
+ *  - BT layer uses &none instead of &trans to prevent accidental keypresses
+ *  - Bootloader moved to safer thumb position (requires holding Enter layer)
+ *  - ESC available on Num/Nav layer thumb
  */
 
 #include <behaviors.dtsi>
@@ -8,10 +17,13 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
-    /* * CONFIGURAÇÃO DOS HOME ROW MODS (IGUAL AO VIAL)
-     * Isso faz com que segurar A/S/D/F funcione como GUI/Alt/Ctrl/Shift
+    /*
+     * HOME ROW MODS
+     * Tap  → letter
+     * Hold → modifier
+     * tapping-term-ms: how long until hold triggers (200ms is safe, raise to 220 if accidental)
+     * quick-tap-ms: double-tap within this window = repeat keypress (not hold)
      */
-
     behaviors {
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
@@ -27,56 +39,96 @@
     keymap {
         compatible = "zmk,keymap";
 
-        /* LAYER 0: BASE (QWERTY 3x5 + THUMBS) */
-
+        /* ─────────────────────────────────────────────────────
+         * LAYER 0: BASE (QWERTY 3×5 + 3 THUMBS)
+         *
+         *  Q   W   E   R   T  |  Y   U   I   O   P
+         *  A   S   D   F   G  |  H   J   K   L   ;
+         * GUI Alt Ctl Sft     | Sft Ctl Alt GUI
+         *  Z   X   C   V   B  |  N   M   ,   .   /
+         *          TAB SPC SFT | DEL ENT BSP
+         *          SYM NUM     |  BT  FN
+         * ───────────────────────────────────────────────────── */
         default_layer {
             bindings = <
-&none  &hm ESCAPE Q  &kp W       &kp E        &kp R        &kp T             &kp Y         &kp U         &kp I          &kp O       &kp P          &none
-&none  &hm LGUI A    &hm LALT S  &hm LCTRL D  &kp F        &kp G             &kp H         &hm RSHIFT J  &hm RCTRL K    &hm RALT L  &hm RGUI SEMI  &none
-&none  &kp Z         &kp X       &kp C        &kp V        &kp B             &kp B         &kp N         &kp M          &kp COMMA   &kp DOT        &none
-                                 &lt 2 TAB    &lt 1 SPACE  &kp LEFT_SHIFT    &lt 4 DELETE  &lt 3 ENTER   &kp BACKSPACE
+&none  &kp Q       &kp W       &kp E        &kp R         &kp T              &kp Y         &kp U         &kp I          &kp O       &kp P          &none
+&none  &hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHIFT F  &kp G              &kp H         &hm RSHIFT J  &hm RCTRL K    &hm RALT L  &hm RGUI SEMI  &none
+&none  &kp Z       &kp X       &kp C        &kp V         &kp B              &kp N         &kp M         &kp COMMA      &kp DOT     &kp SLASH      &none
+                               &lt 2 TAB    &lt 1 SPACE   &kp LEFT_SHIFT     &lt 4 DELETE  &lt 3 ENTER   &kp BACKSPACE
             >;
         };
 
-        /* LAYER 1: NUMEROS E NAVEGAÇÃO */
-
+        /* ─────────────────────────────────────────────────────
+         * LAYER 1: NUMBERS & NAVIGATION
+         *
+         *  1   2   3   4   5  |  6   7   8   9   0
+         * GUI Alt Ctl Sft  -  |  ←   ↓   ↑   →  BSP
+         *  -   -   -   -   -  | Hom PgD PgU End Tab
+         *          ---  ---  --- | ESC ---  ---
+         * ───────────────────────────────────────────────────── */
         lower_layer {
             bindings = <
-&none  &kp N1     &kp N2    &kp N3    &kp N4      &kp N5    &kp N6    &kp N7     &kp N8     &kp N9     &kp N0     &none
-&none  &kp LCTRL  &kp LALT  &kp LGUI  &kp LSHIFT  &trans    &kp LEFT  &kp DOWN   &kp UP     &kp RIGHT  &kp SLASH  &none
-&none  &trans     &trans    &trans    &trans      &trans    &kp HOME  &kp PG_DN  &kp PG_UP  &kp END    &kp TAB    &none
-                            &trans    &trans      &trans    &trans    &trans     &trans
+&none  &kp N1    &kp N2    &kp N3     &kp N4      &kp N5       &kp N6    &kp N7     &kp N8     &kp N9    &kp N0    &none
+&none  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHIFT  &trans       &kp LEFT  &kp DOWN   &kp UP     &kp RIGHT &kp BSPC  &none
+&none  &trans    &trans    &trans     &trans      &trans       &kp HOME  &kp PG_DN  &kp PG_UP  &kp END   &kp TAB   &none
+                           &trans     &trans      &trans       &kp ESC   &trans     &trans
             >;
         };
 
-        /* LAYER 2: SIMBOLOS */
-
+        /* ─────────────────────────────────────────────────────
+         * LAYER 2: SYMBOLS (programming-optimized)
+         *
+         *  !   @   #   $   %  |  ^   &   *   (   )
+         *  |   _   -   =   +  |  {   }   [   ]   '
+         *  `   ~   \   <   >  |  ?   "   :   ;   .
+         *          --- ---  --- |  --- ~   `
+         *
+         * Pairs grouped: () {} [] <> on same hand/row
+         * Operators: | & * ^ on top-right
+         * ───────────────────────────────────────────────────── */
         raise_layer {
             bindings = <
-&none  &kp LS(N1)  &kp LS(N2)  &kp LS(N3)  &kp LS(N4)   &kp LS(N5)    &kp LS(N6)     &kp LS(N7)     &kp LS(N8)    &kp LS(N9)    &kp LS(N0)  &none
-&none  &trans      &trans      &trans      &kp LS(SQT)  &kp SLASH     &kp LS(MINUS)  &kp EQUAL      &kp LS(LBKT)  &kp LS(RBKT)  &kp SQT     &none
-&none  &trans      &trans      &trans      &trans       &trans        &kp MINUS      &kp LS(EQUAL)  &kp LBKT      &kp RBKT      &kp BSLH    &none
-                               &trans      &trans       &trans        &kp QUESTION   &kp LS(GRAVE)  &kp GRAVE
+&none  &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT    &kp CARET  &kp AMPS      &kp ASTRK  &kp LPAR   &kp RPAR  &none
+&none  &kp PIPE   &kp UNDER  &kp MINUS  &kp EQUAL  &kp PLUS     &kp LBRC   &kp RBRC      &kp LBKT   &kp RBKT   &kp SQT   &none
+&none  &kp GRAVE  &kp TILDE  &kp BSLH   &kp LT     &kp GT       &kp QMARK  &kp DQT       &kp COLON  &kp SEMI   &kp DOT   &none
+                             &trans     &trans     &trans       &trans     &kp LS(GRAVE)  &kp GRAVE
             >;
         };
 
-        /* LAYER 3: F-KEYS, MIDIA E BLUETOOTH */
-
+        /* ─────────────────────────────────────────────────────
+         * LAYER 3: FUNCTION KEYS & MEDIA
+         *
+         *  F1  F2  F3  F4  F5 |  F6  F7  F8  F9 F10
+         * F11 F12  -   -   -  | Psc Cap  -   -   -
+         *  -   -   -   -   -  | ⏮  Vol- Vol+  ⏭  ⏯
+         *          ---  ---  --- |  --- ---  BOOT
+         * ───────────────────────────────────────────────────── */
         adjust_layer {
             bindings = <
-&none  &kp F1   &kp F2   &kp F3  &kp F4  &kp F5    &kp F6      &kp F7        &kp F8        &kp F9        &kp F10   &none
-&none  &kp F11  &kp F12  &trans  &trans  &trans    &kp PSCRN   &trans        &trans        &kp CAPSLOCK  &trans    &none
-&none  &trans   &trans   &trans  &trans  &trans    &kp C_PREV  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT    &kp C_PP  &none
-                         &trans  &trans  &trans    &trans      &bootloader   &trans
+&none  &kp F1   &kp F2   &kp F3  &kp F4  &kp F5    &kp F6      &kp F7        &kp F8        &kp F9      &kp F10   &none
+&none  &kp F11  &kp F12  &trans  &trans  &trans    &kp PSCRN   &kp CAPSLOCK  &trans        &trans      &trans    &none
+&none  &trans   &trans   &trans  &trans  &trans    &kp C_PREV  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &kp C_PP  &none
+                         &trans  &trans  &trans    &trans      &trans        &bootloader
             >;
         };
 
+        /* ─────────────────────────────────────────────────────
+         * LAYER 4: BLUETOOTH
+         *
+         * BT0 BT1 BT2 BT3 BT4 |  -   -   -   -   -
+         * CLR CAL  -   -   -   |  -   -   -   -   -
+         *  -   -   -   -   -   |  -   -   -   -   -
+         *          &none &none &none | --- &none &none
+         *
+         * All unused keys are &none (not &trans) to prevent
+         * accidental keypresses while selecting BT profiles.
+         * ───────────────────────────────────────────────────── */
         layer_4 {
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&bt BT_CLR    &bt BT_CLR_ALL  &trans        &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans        &trans          &trans        &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                                            &trans        &trans        &trans    &trans  &trans  &trans
+&none          &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none   &none   &none   &none   &none   &none
+&none          &bt BT_CLR      &bt BT_CLR_ALL  &none         &none         &none           &none   &none   &none   &none   &none   &none
+&none          &none           &none           &none         &none         &none           &none   &none   &none   &none   &none   &none
+                                               &none         &none         &none           &trans  &none   &none
             >;
         };
     };
