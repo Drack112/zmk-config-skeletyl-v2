@@ -138,7 +138,7 @@
 &none  &kp Q       &kp W       &kp E        &kp R         &kp T             &kp Y         &kp U         &kp I          &kp O       &kp P          &none
 &none  &hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHIFT F  &kp G             &kp H         &hm RSHIFT J  &hm RCTRL K    &hm RALT L  &hm RGUI SEMI  &none
 &none  &kp Z       &kp X       &kp C        &kp V         &kp B             &kp N         &kp M         &kp COMMA      &kp DOT     &kp SLASH      &none
-                               &lt 2 TAB    &lt 1 SPACE   &kp LEFT_SHIFT    &lt 5 DELETE  &lt 4 ENTER   &kp BACKSPACE
+                               &lt 2 TAB    &lt 1 SPACE   &kp LEFT_SHIFT    &lt 4 DELETE  &lt 3 ENTER   &kp BACKSPACE
             >;
         };
 
@@ -196,16 +196,6 @@
          * with Unicode input enabled). If your OS needs a
          * different method, replace with macros.
          * ════════════════════════════════════════════════════ */
-
-        sym_b_layer {
-            bindings = <
-&none  &kp LS(LA(N1))  &kp LS(LA(N2))  &kp LS(LA(N3))  &kp LS(LA(N4))  &kp LS(LA(N5))    &kp LS(LA(EQUAL))  &kp LS(LA(X))  &trans          &trans         &trans          &none
-&none  &kp LS(LA(J))   &kp LS(LA(K))   &kp LS(LA(U))   &kp LS(LA(D))   &trans            &trans             &trans         &trans          &kp LS(LA(V))  &kp LS(LA(N0))  &none
-&none  &trans          &trans          &trans          &trans          &trans            &kp LS(LA(G))      &kp LS(LA(R))  &kp LS(LA(N2))  &trans         &trans          &none
-                                       &trans          &trans          &trans            &trans             &trans         &trans
-            >;
-        };
-
         /* ════════════════════════════════════════════════════
          * LAYER 4: FUNCTION KEYS & MEDIA
          *  F1  F2  F3  F4  F5  |  F6  F7  F8  F9 F10
@@ -257,16 +247,6 @@
          *   Spotlight = Cmd+Space (thumb combo)
          *   Mission Control = Ctrl+Up
          * ════════════════════════════════════════════════════ */
-
-        macos_layer {
-            bindings = <
-&none  &trans       &trans      &trans      &trans        &trans    &trans  &trans        &trans      &trans      &trans          &none
-&none  &hm LCTRL A  &hm LALT S  &hm LGUI D  &hm LSHIFT F  &trans    &trans  &hm RSHIFT J  &hm RGUI K  &hm RALT L  &hm RCTRL SEMI  &none
-&none  &trans       &trans      &trans      &trans        &trans    &trans  &trans        &trans      &trans      &trans          &none
-                                &trans      &trans        &trans    &trans  &trans        &trans
-            >;
-        };
-
         /* ════════════════════════════════════════════════════
          * LAYER 7: WINDOWS OVERRIDE  (combo S+L to toggle)
          *
@@ -281,16 +261,6 @@
          *   Alt+F4 = close window
          *   Win+Tab = Task View
          * ════════════════════════════════════════════════════ */
-
-        windows_layer {
-            bindings = <
-&none  &trans      &trans      &trans       &trans         &trans    &trans     &trans        &trans       &trans      &trans         &none
-&none  &hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHIFT F   &trans    &trans     &hm RSHIFT J  &hm RCTRL K  &hm RALT L  &hm RGUI SEMI  &none
-&none  &trans      &trans      &trans       &trans         &trans    &trans     &trans        &trans       &trans      &trans         &none
-                               &trans       &kp LG(SPACE)  &trans    &kp LG(L)  &kp LA(F4)    &kp LG(TAB)
-            >;
-        };
-
         /* ════════════════════════════════════════════════════
          * LAYER 8: GAME  (combo F+J to toggle)
          *
