@@ -119,6 +119,11 @@
             bindings = <&kp ESC>;
             key-positions = <1 2>;
         };
+
+        del {
+            bindings = <&kp DELETE>;
+            key-positions = <10 22>;
+        };
     };
 
     /* ──────────────────────────────────────────────────────────
