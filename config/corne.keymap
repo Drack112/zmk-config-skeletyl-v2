@@ -179,7 +179,7 @@
 &none  &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &none
 &none  &kp PIPE   &kp UNDER  &kp MINUS  &kp EQUAL  &kp PLUS     &kp LBRC   &kp RBRC   &kp LBKT   &kp RBKT  &kp SQT   &none
 &none  &kp GRAVE  &kp TILDE  &kp BSLH   &kp LT     &kp GT       &kp QMARK  &kp DQT    &kp COLON  &kp SEMI  &kp DOT   &none
-                             &trans     &trans     &trans       &trans     &kp TILDE  &kp GRAVE
+                             &trans     &trans     &trans       &trans     &kp SLASH  &kp GRAVE
             >;
         };
 
