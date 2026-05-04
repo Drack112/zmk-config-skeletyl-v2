@@ -114,6 +114,11 @@
         /* R+T  →  Tab  (handy in gaming / nav without leaving layer) */
         /* V+B  →  Caps Word (like Caps Lock but only for one word) */
         /* M+,  →  Delete word forward (Ctrl+Del) */
+
+        esc {
+            bindings = <&kp ESC>;
+            key-positions = <1 2>;
+        };
     };
 
     /* ──────────────────────────────────────────────────────────
