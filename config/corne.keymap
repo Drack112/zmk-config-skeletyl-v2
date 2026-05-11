@@ -124,6 +124,11 @@
             bindings = <&kp DELETE>;
             key-positions = <10 22>;
         };
+
+        caps {
+            bindings = <&kp CAPS>;
+            key-positions = <12 13>;
+        };
     };
 
     /* ──────────────────────────────────────────────────────────
@@ -145,10 +150,10 @@
 
         default_layer {
             bindings = <
-&none  &kp Q           &kp W  &kp E      &kp R        &kp T                      &kp Y            &kp U        &kp I                &kp O                &kp P             &none
-&none  &kp A           &kp S  &kp D      &kp F        &kp G                      &kp H            &kp J        &hm RIGHT_CONTROL K  &kp L                &hm APOS SEMI     &none
-&none  &hm LEFT_GUI Z  &kp X  &kp C      &kp V        &kp B                      &kp B            &kp N        &kp M                &hm BACKSLASH COMMA  &hm SLASH PERIOD  &none
-                              &lt 2 TAB  &lt 1 SPACE  &hm LEFT_SHIFT CAPSLOCK    &lt 4 BACKSPACE  &lt 3 ENTER  &kp BACKSPACE
+&none  &kp Q           &kp W  &kp E      &kp R      &kp T               &kp Y            &kp U        &kp I                &kp O                &kp P             &none
+&none  &kp A           &kp S  &kp D      &kp F      &kp G               &kp H            &kp J        &hm RIGHT_CONTROL K  &kp L                &hm APOS SEMI     &none
+&none  &hm LEFT_GUI Z  &kp X  &kp C      &kp V      &kp B               &kp B            &kp N        &kp M                &hm BACKSLASH COMMA  &hm SLASH PERIOD  &none
+                              &lt 4 TAB  &kp SPACE  &lt 1 LEFT_SHIFT    &lt 2 BACKSPACE  &lt 3 ENTER  &kp BACKSPACE
             >;
         };
 
